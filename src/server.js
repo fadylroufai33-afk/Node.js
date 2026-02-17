@@ -1,15 +1,13 @@
-import http from "node:http";
-import { json } from "./utils/response.js";
-import { listUsers } from "./users/user-controler.js";
+import express from 'express';
 
-const listener = (request, response) => {
-  if (request.url === "/users" && request.method === "GET") {
-    return listUsers(request, response);
-  }
-  return json(response, 404, { error: "Not found" });
-};
+const app = express();
 
-const server = http.createServer(listener);
-server.listen(3000);
+app.use(express.json());
 
-console.log("server running at http://127.0.0.1/3000/");
+app.get('/', (req, res) => {
+  res.send('Hello World')
+});
+
+app.listen(3000, () => {
+  console.log('Server is running on http://localhost:3000')
+})
